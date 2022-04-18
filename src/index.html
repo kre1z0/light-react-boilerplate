@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/png" />
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <%= htmlWebpackPlugin.options.styles %> <%= htmlWebpackPlugin.options.state %>
+    <script id="app-config" type="text/app-config">
+      <%= htmlWebpackPlugin.options.config %>
+    </script>
+  </head>
+  <body>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Roboto:ital,wght@0,700;1,300&display=swap"
+      rel="stylesheet"
+    />
+    <div id="root"><%= htmlWebpackPlugin.options.app %></div>
+  </body>
+</html>

@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Icon, IconButton, Radio } from "ui";
 import { LanguageSwitch } from "components";
 
-import { AppActions, selectThemeKey, ThemeKeyType } from "store/app";
+import { AppActions, selectThemeKey } from "store/app";
+import { ThemeKeyType } from "store/app/types";
 import { saveTheme } from "styles/theme/utils";
 
 export const IndexPage: FC = (): ReactElement => {

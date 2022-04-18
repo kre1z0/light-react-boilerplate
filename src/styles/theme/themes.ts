@@ -8,6 +8,8 @@ const lightTheme = {
   borderLight: "rgba(58,52,51,0.05)",
 };
 
+export type Theme = typeof lightTheme;
+
 const darkTheme: Theme = {
   primary: "rgba(220,120,95,1)",
   text: "rgba(241,233,231,1)",
@@ -17,8 +19,6 @@ const darkTheme: Theme = {
   border: "rgba(241,233,231,0.15)",
   borderLight: "rgba(241,233,231,0.05)",
 };
-
-export type Theme = typeof lightTheme;
 
 export const themes = {
   light: lightTheme,

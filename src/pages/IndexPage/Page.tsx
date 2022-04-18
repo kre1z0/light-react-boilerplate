@@ -1,28 +1,24 @@
 import React, { FC, ReactElement, ChangeEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 import { Icon, IconButton, Radio } from "ui";
 import { LanguageSwitch } from "components";
 
-import { ROUTES } from "constants/routes";
-
-import { themeActions } from "slices/theme";
+import { AppActions, selectThemeKey, ThemeKeyType } from "store/app";
 import { saveTheme } from "styles/theme/utils";
-import { selectThemeKey } from "slices/theme/selectors";
-
-import { ThemeKeyType } from "slices/theme/types";
 
 export const IndexPage: FC = (): ReactElement => {
   const theme = useSelector(selectThemeKey);
-  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const handleThemeChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value as ThemeKeyType;
 
     saveTheme(value);
-    dispatch(themeActions.changeTheme(value));
+    dispatch({
+      type: AppActions.SetTheme,
+      payload: value,
+    });
   };
 
   return (
@@ -61,7 +57,6 @@ export const IndexPage: FC = (): ReactElement => {
         <IconButton size="2.5rem" type="home" />
       </div>
       <LanguageSwitch />
-      <button onClick={() => navigate(ROUTES.Swagger)}>swagger</button>
     </>
   );
 };

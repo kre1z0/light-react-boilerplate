@@ -1,4 +1,4 @@
-import { ThemeKeyType } from "slices/theme/types";
+import { ThemeKeyType } from "store/app";
 
 export const isSystemDark = window?.matchMedia
   ? window.matchMedia("(prefers-color-scheme: dark)")?.matches

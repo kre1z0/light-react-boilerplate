@@ -1,16 +1,16 @@
-import { AppActions } from "constants/actions";
+import { applyDefaultState } from "store/applyDefaultState";
+import { getThemeFromStorage } from "styles/theme/utils";
 
-import { applyDefaultState } from "store/createStore";
-
-import { AppState } from "store/types";
+import { AppState } from "./types";
+import { AppActions } from "./actions";
 
 const DEFAULT_STATE: AppState = {
-  theme: "ggwp",
+  theme: getThemeFromStorage() || "system",
 };
 
 export const app: Reducer<AppState, AppActions> = (state = DEFAULT_STATE, action): AppState => {
   switch (action.type) {
-    case AppActions.SetCurrentModule:
+    case AppActions.SetTheme:
       return {
         ...state,
         theme: action.payload,

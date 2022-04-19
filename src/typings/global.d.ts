@@ -1,3 +1,9 @@
-type Reducer<TStore, TType> = (state: TStore, action: IAction<TType>) => TStore;
+import { store } from "store";
 
-type ValueOf<T> = T[keyof T];
+declare global {
+  type RootState = ReturnType<typeof store.getState>;
+
+  type Dispatch = typeof store.dispatch;
+
+  type ValueOf<T> = T[keyof T];
+}

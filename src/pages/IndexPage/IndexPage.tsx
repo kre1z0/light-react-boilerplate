@@ -1,26 +1,43 @@
-import React, { FC, ReactElement, ChangeEvent } from "react";
+import React, { FC, ReactElement, ChangeEvent, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Icon, IconButton, Radio } from "ui";
 import { LanguageSwitch } from "components";
+import { Code } from "./styled";
 
-import { AppActions, selectThemeKey } from "store/app";
-import { ThemeKeyType } from "store/app/types";
 import { saveTheme } from "styles/theme/utils";
+import { selectThemeKey } from "slices/app/selectors";
+import { postsSelector } from "slices/posts/selectors";
+import { actions } from "slices/app";
+import { fetchPosts } from "slices/posts/actions";
+
+import { ThemeKeyType } from "slices/app/types";
+
+const formatJSON = (data: Array<{}>, ellipsis = true) => {
+  const string = JSON.stringify(data, null, 4);
+
+  if (!ellipsis) {
+    return string;
+  }
+
+  return `${string.slice(0, string.length - 2)},\n ...${string.slice(string.length - 2)}`;
+};
 
 export const IndexPage: FC = (): ReactElement => {
   const theme = useSelector(selectThemeKey);
+  const dispatch = useDispatch<Dispatch>();
+  const { loading, posts } = useSelector(postsSelector);
 
-  const dispatch = useDispatch();
   const handleThemeChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value as ThemeKeyType;
 
     saveTheme(value);
-    dispatch({
-      type: AppActions.SetTheme,
-      payload: value,
-    });
+    dispatch(actions.setTheme(value));
   };
+
+  useEffect(() => {
+    dispatch(fetchPosts());
+  }, [dispatch]);
 
   return (
     <>
@@ -58,6 +75,7 @@ export const IndexPage: FC = (): ReactElement => {
         <IconButton size="2.5rem" type="home" />
       </div>
       <LanguageSwitch />
+      <Code>{loading ? "loading..." : formatJSON(posts)}</Code>
     </>
   );
 };

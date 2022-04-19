@@ -1,10 +1,12 @@
-import { createStore, applyMiddleware, Store, Middleware } from "redux";
-import thunk from "redux-thunk";
+import { configureStore } from "@reduxjs/toolkit";
 
-import { rootReducer } from "./rootReducer";
+import { reducer as posts } from "slices/posts";
+import { reducer as app } from "slices/app";
 
-function configureStore(): Store<{}> {
-  return createStore(rootReducer, {}, applyMiddleware(...([thunk] as Middleware[])));
-}
-
-export const store: Store<{}> = configureStore();
+export const store = configureStore({
+  reducer: {
+    app,
+    posts,
+  },
+  devTools: process.env.NODE_ENV !== "production",
+});

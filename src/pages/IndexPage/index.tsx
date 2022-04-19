@@ -6,7 +6,7 @@ import { LoadingWrapper } from "./styled";
 import { lazyLoad } from "utils/loadable";
 
 export const IndexPage = lazyLoad(
-  () => import("./Page"),
+  () => import("./IndexPage"),
   (module) => module.IndexPage,
   {
     fallback: (
